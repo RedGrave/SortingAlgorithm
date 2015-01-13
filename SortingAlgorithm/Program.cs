@@ -18,9 +18,31 @@ namespace SortingAlgorithm
             return array;
         }
 
+        static void checkResult(int[] data)
+        {
+            bool result = true;
+            Console.Write("Checking if data are correctly sorted...");
+            for (int i = 0; i < data.Length-1; i++)
+            {
+                if(!(data[i] <= data[i+1]) && i+1 < data.Length-1)
+                {
+                    Console.Write("\tCheck FAILED at : " + i);
+                    result = false;
+                    break;
+                }
+            }
+            if(result)
+            {
+                Console.Write("\tPASS !");
+            }
+            Console.WriteLine("\n----------");
+        }
+
         static void test(Sorter.sortingType s, int pass, int nbrOfElement)
         {
-            Console.WriteLine("\nTesting sorting algorithm : " + s);
+            long[] elapsedMS = new long[pass];
+            Console.WriteLine("\n\nTesting sorting algorithm : " + s);
+            Console.WriteLine("----------");
             for(int i = 0; i < pass; i++)
             {
                 var watch = Stopwatch.StartNew();
@@ -30,8 +52,19 @@ namespace SortingAlgorithm
                 watch.Start();
                 sorter.sort(data);
                 watch.Stop();
-                Console.Write(watch.Elapsed + " s\t");
+                Console.Write(watch.Elapsed + "\n");
+                elapsedMS[i] = watch.ElapsedMilliseconds;
+                checkResult(data);
             }
+            long averageTime = 0;
+            for (int i = 0; i < pass; i++)
+            {
+                averageTime += elapsedMS[i];
+            }
+
+            Console.WriteLine("----------");
+            Console.WriteLine("Average Time : " + averageTime/pass + " ms");
+            Console.WriteLine("----------");
         }
 
         static void Main(string[] args)
