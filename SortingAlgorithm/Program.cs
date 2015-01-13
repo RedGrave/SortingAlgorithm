@@ -21,6 +21,7 @@ namespace SortingAlgorithm
         static void checkResult(int[] data)
         {
             bool result = true;
+
             Console.Write("Checking if data are correctly sorted...");
             for (int i = 0; i < data.Length-1; i++)
             {
@@ -41,6 +42,8 @@ namespace SortingAlgorithm
         static void test(Sorter.sortingType s, int pass, int nbrOfElement)
         {
             long[] elapsedMS = new long[pass];
+            long averageTime = 0;
+
             Console.WriteLine("\n\nTesting sorting algorithm : " + s);
             Console.WriteLine("----------");
             for(int i = 0; i < pass; i++)
@@ -56,7 +59,7 @@ namespace SortingAlgorithm
                 elapsedMS[i] = watch.ElapsedMilliseconds;
                 checkResult(data);
             }
-            long averageTime = 0;
+
             for (int i = 0; i < pass; i++)
             {
                 averageTime += elapsedMS[i];
@@ -69,8 +72,8 @@ namespace SortingAlgorithm
 
         static void Main(string[] args)
         {
-            int nbr = 40000;
-            int p = 2;
+            int nbr = 20000;
+            int p = 1;
             test(Sorter.sortingType.selectionSort, p, nbr);
             test(Sorter.sortingType.insertionSort, p, nbr);
             test(Sorter.sortingType.bubbleSort, p, nbr);

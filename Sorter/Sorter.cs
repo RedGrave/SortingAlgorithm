@@ -52,7 +52,7 @@ namespace Sorter
                     tmpData = sortByInsertion(tmpData);
                     break;
                 case sortingType.quickSort:
-                    tmpData = sortByInsertion(tmpData);
+                    sortByQuicksort(tmpData);
                     break;
                 default:
                     Console.WriteLine("Sorting method doesn't exist");
@@ -157,7 +157,7 @@ namespace Sorter
             return null;
         }
 
-        private int partition(int[] data, int left, int right)
+        /*private int partition(int[] data, int left, int right)
         {
             int pivot = data[left];
             while(true)
@@ -185,9 +185,9 @@ namespace Sorter
                     return right;
                 }
             }
-        }
+        }*/
 
-        private int[] quickSort(int[] data, int left, int right)
+        /*private int[] quickSort(int[] data, int left, int right)
         {
             if(left < right)
             {
@@ -202,6 +202,46 @@ namespace Sorter
                     quickSort(data, pivot, right);
                 }
             }
+            return data;
+        }*/
+
+        private void quickSwap(int[] data, int a, int b)
+        {
+            int temp = data[a];
+            data[a] = data[b];
+            data[b] = temp;
+        }
+
+        private int[] quickSort(int[] data, int start, int end)
+        {
+            if(end > start)
+            {
+                int pivot_index = (start + end) / 2;
+                int pivot = data[pivot_index];
+                int change;
+ 
+                quickSwap(data, pivot_index, end);
+ 
+                for(int i = change = start; i < end; i++)
+                {
+                    if(data[i] < pivot)
+                    {
+                        quickSwap(data, i, change);
+                        change++;
+                    }
+                }
+ 
+                quickSwap(data, change, end);
+ 
+                quickSort(data, start, change - 1);
+                quickSort(data, change + 1, end);
+            }
+            return data;
+        }
+
+        private int[] sortByQuicksort(int[] data)
+        {
+            data = quickSort(data, 0, data.Length - 1);
             return data;
         }
     }
